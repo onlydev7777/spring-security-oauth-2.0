@@ -20,14 +20,15 @@ public class OAuth2ClientConfig {
 //        .antMatchers("/login/loginPage").permitAll()
         .anyRequest().authenticated()
         .and()
-        .oauth2Login(Customizer.withDefaults());
+//        .oauth2Login(Customizer.withDefaults());
+    .oauth2Client(Customizer.withDefaults());
 
-    http.logout(logout->logout
-        .logoutSuccessHandler(oidcLogoutSuccessHandler())
-        .invalidateHttpSession(true)
-        .clearAuthentication(true)
-        .deleteCookies("JSESSIONID")
-    );
+//    http.logout(logout->logout
+//        .logoutSuccessHandler(oidcLogoutSuccessHandler())
+//        .invalidateHttpSession(true)
+//        .clearAuthentication(true)
+//        .deleteCookies("JSESSIONID")
+//    );
 
 //        .oauth2Login(login->login.loginPage("/loginPage"));
     return http.build();
