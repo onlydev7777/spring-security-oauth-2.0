@@ -30,7 +30,7 @@ public class AbstractOAuth2UserService {
 
   protected ProviderUser providerUser(ClientRegistration clientRegistration, OAuth2User oAuth2User) {
     String registrationId = clientRegistration.getRegistrationId();
-    if ("keyclock".equals(registrationId)) {
+    if ("keycloak".equals(registrationId)) {
       return new KeyclockUser(oAuth2User, clientRegistration);
     } else if ("google".equals(registrationId)) {
       return new GoogleUser(oAuth2User, clientRegistration);

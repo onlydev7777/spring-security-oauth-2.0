@@ -22,19 +22,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-public class IndexController {
+public class TestIndexController {
+
   private final ClientRegistrationRepository clientRegistrationRepository;
   private final String REGISTRATION_ID = "keyclock";
-  @GetMapping("/")
-  public String index(){
-    return "index";
-  }
 
   @GetMapping("/user")
-  public OAuth2User user(String accessToken){
+  public OAuth2User user(String accessToken) {
     ClientRegistration clientRegistration = clientRegistrationRepository.findByRegistrationId(REGISTRATION_ID);
 
-    OAuth2AccessToken oAuth2AccessToken = new OAuth2AccessToken(TokenType.BEARER, accessToken, Instant.now(), Instant.MAX, Set.of("profile","email"));
+    OAuth2AccessToken oAuth2AccessToken = new OAuth2AccessToken(TokenType.BEARER, accessToken, Instant.now(), Instant.MAX,
+        Set.of("profile", "email"));
     OAuth2UserRequest oAuth2UserRequest = new OAuth2UserRequest(clientRegistration, oAuth2AccessToken);
     DefaultOAuth2UserService defaultOAuth2UserService = new DefaultOAuth2UserService();
     OAuth2User oAuth2User = defaultOAuth2UserService.loadUser(oAuth2UserRequest);
@@ -43,7 +41,7 @@ public class IndexController {
   }
 
   @GetMapping("/oidc")
-  public OAuth2User oidc(String accessToken, String idToken){
+  public OAuth2User oidc(String accessToken, String idToken) {
     ClientRegistration clientRegistration = clientRegistrationRepository.findByRegistrationId(REGISTRATION_ID);
     OAuth2AccessToken oAuth2AccessToken = new OAuth2AccessToken(TokenType.BEARER, accessToken, Instant.now(), Instant.MAX, Set.of("read"));
 
