@@ -20,41 +20,41 @@ import org.springframework.util.StringUtils;
 @Configuration
 public class AppConfig {
 
-    @Bean
-    public DefaultOAuth2AuthorizedClientManager auth2AuthorizedClientManager(ClientRegistrationRepository clientRegistrationRepository,
-                                                                             OAuth2AuthorizedClientRepository clientRepository){
+  @Bean
+  public DefaultOAuth2AuthorizedClientManager auth2AuthorizedClientManager(ClientRegistrationRepository clientRegistrationRepository,
+      OAuth2AuthorizedClientRepository clientRepository) {
 
-        OAuth2AuthorizedClientProvider oauth2AuthorizedClientProvider =
-                OAuth2AuthorizedClientProviderBuilder.builder()
-                        .authorizationCode()
-                        .password(passwordGrantBuilder -> passwordGrantBuilder.clockSkew(Duration.ofSeconds(3600)))
-                        .refreshToken(refreshTokenGrantBuilder -> refreshTokenGrantBuilder.clockSkew(Duration.ofSeconds(3600)))
-                        .clientCredentials()
-                        .build();
+    OAuth2AuthorizedClientProvider oauth2AuthorizedClientProvider =
+        OAuth2AuthorizedClientProviderBuilder.builder()
+            .authorizationCode()
+            .password(passwordGrantBuilder -> passwordGrantBuilder.clockSkew(Duration.ofSeconds(3600)))
+            .refreshToken(refreshTokenGrantBuilder -> refreshTokenGrantBuilder.clockSkew(Duration.ofSeconds(3600)))
+            .clientCredentials()
+            .build();
 
-        DefaultOAuth2AuthorizedClientManager oAuth2AuthorizedClientManager =
-                new DefaultOAuth2AuthorizedClientManager(clientRegistrationRepository,clientRepository);
+    DefaultOAuth2AuthorizedClientManager oAuth2AuthorizedClientManager =
+        new DefaultOAuth2AuthorizedClientManager(clientRegistrationRepository, clientRepository);
 
-        oAuth2AuthorizedClientManager.setAuthorizedClientProvider(oauth2AuthorizedClientProvider);
-        oAuth2AuthorizedClientManager.setContextAttributesMapper(contextAttributesMapper());
+    oAuth2AuthorizedClientManager.setAuthorizedClientProvider(oauth2AuthorizedClientProvider);
+    oAuth2AuthorizedClientManager.setContextAttributesMapper(contextAttributesMapper());
 
-        return oAuth2AuthorizedClientManager;
+    return oAuth2AuthorizedClientManager;
 
-    }
+  }
 
-    private Function<OAuth2AuthorizeRequest, Map<String, Object>> contextAttributesMapper() {
-        return oAuth2AuthorizeRequest -> {
-            Map<String,Object> contextAttributes = new HashMap<>();
-            HttpServletRequest request = oAuth2AuthorizeRequest.getAttribute(HttpServletRequest.class.getName());
-            String username = request.getParameter(OAuth2ParameterNames.USERNAME);
-            String password = request.getParameter(OAuth2ParameterNames.PASSWORD);
+  private Function<OAuth2AuthorizeRequest, Map<String, Object>> contextAttributesMapper() {
+    return oAuth2AuthorizeRequest -> {
+      Map<String, Object> contextAttributes = new HashMap<>();
+      HttpServletRequest request = oAuth2AuthorizeRequest.getAttribute(HttpServletRequest.class.getName());
+      String username = request.getParameter(OAuth2ParameterNames.USERNAME);
+      String password = request.getParameter(OAuth2ParameterNames.PASSWORD);
 
-            if(StringUtils.hasText(username) && StringUtils.hasText(password)){
+      if (StringUtils.hasText(username) && StringUtils.hasText(password)) {
 
-                contextAttributes.put(OAuth2AuthorizationContext.USERNAME_ATTRIBUTE_NAME,username);
-                contextAttributes.put(OAuth2AuthorizationContext.PASSWORD_ATTRIBUTE_NAME,password);
-            }
-            return contextAttributes;
-        };
-    }
+        contextAttributes.put(OAuth2AuthorizationContext.USERNAME_ATTRIBUTE_NAME, username);
+        contextAttributes.put(OAuth2AuthorizationContext.PASSWORD_ATTRIBUTE_NAME, password);
+      }
+      return contextAttributes;
+    };
+  }
 }
