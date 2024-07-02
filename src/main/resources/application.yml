@@ -6,6 +6,12 @@ spring:
     oauth2:
       client:
         registration:
+          google:
+            client-id: 261020695754-1hare0k9ja82imlmlr07pnkb8oequ3dl.apps.googleusercontent.com
+            client-secret: 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
+          naver:
+            client-id: 86F6bsUgZ5NHu11Jh5Zt
+            client-secret: 1sGx7H05bv
           keycloak:
             client-id: oauth2-client-app
             client-secret: xGgB0cTbInkkPsY7mIr4UdF7x4dddvYc
