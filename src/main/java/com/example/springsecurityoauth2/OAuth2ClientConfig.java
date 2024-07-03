@@ -21,7 +21,7 @@ public class OAuth2ClientConfig {
     http.authorizeRequests((requests) -> requests
         .antMatchers("/js/**", "/images/**", "/css/**", "/scss/**").permitAll()
         .antMatchers("/").permitAll()
-        .antMatchers("/api/user").access("hasAnyRole('SCOPE_profile','SCOPE_email')")
+        .antMatchers("/api/user").access("hasAnyRole('SCOPE_profile','SCOPE_email', 'SCOPE_profile_image', 'SCOPE_account_email')")
         .antMatchers("/api/oidc").access("hasRole('SCOPE_openid')")
         .anyRequest().authenticated());
 

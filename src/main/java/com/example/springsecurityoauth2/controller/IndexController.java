@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class IndexController {
 
+  private static final String NAME_KEY = "name";
+
   @GetMapping("/")
   public String index(Model model, Authentication authentication, @AuthenticationPrincipal OAuth2User oAuth2User) {
     if (authentication != null && authentication instanceof OAuth2AuthenticationToken) {
@@ -28,7 +30,13 @@ public class IndexController {
         attributes = (Map<String, Object>) attributes.get("response");
       }
 
-      String name = (String) attributes.get("name");
+      String nameKey = NAME_KEY;
+      //kakao일 경우 NAME_KEY : nickname
+      if (((OAuth2AuthenticationToken) authentication).getAuthorizedClientRegistrationId().equals("kakao")) {
+        nameKey = "nick" + nameKey;
+      }
+
+      String name = (String) attributes.get(nameKey);
       model.addAttribute("user", name);
     }
 

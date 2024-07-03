@@ -15,6 +15,7 @@ public class CustomAuthorityMapper implements GrantedAuthoritiesMapper {
   public Collection<? extends GrantedAuthority> mapAuthorities(Collection<? extends GrantedAuthority> authorities) {
     Set<GrantedAuthority> result = new HashSet<>(authorities.size());
     for (GrantedAuthority authority : authorities) {
+      System.out.println("authority = " + authority);
       result.add(mapAuthority(authority.getAuthority()));
     }
     return result;

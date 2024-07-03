@@ -1,7 +1,8 @@
 package com.example.springsecurityoauth2.service;
 
 import com.example.springsecurityoauth2.model.GoogleUser;
-import com.example.springsecurityoauth2.model.KeyclockUser;
+import com.example.springsecurityoauth2.model.KakaoUser;
+import com.example.springsecurityoauth2.model.KeycloakUser;
 import com.example.springsecurityoauth2.model.NaverUser;
 import com.example.springsecurityoauth2.model.ProviderUser;
 import com.example.springsecurityoauth2.model.User;
@@ -31,11 +32,13 @@ public class AbstractOAuth2UserService {
   protected ProviderUser providerUser(ClientRegistration clientRegistration, OAuth2User oAuth2User) {
     String registrationId = clientRegistration.getRegistrationId();
     if ("keycloak".equals(registrationId)) {
-      return new KeyclockUser(oAuth2User, clientRegistration);
+      return new KeycloakUser(oAuth2User, clientRegistration);
     } else if ("google".equals(registrationId)) {
       return new GoogleUser(oAuth2User, clientRegistration);
     } else if ("naver".equals(registrationId)) {
       return new NaverUser(oAuth2User, clientRegistration);
+    } else if ("kakao".equals(registrationId)) {
+      return new KakaoUser(oAuth2User, clientRegistration);
     }
     return null;
   }
