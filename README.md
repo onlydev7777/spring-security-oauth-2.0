@@ -6,3 +6,8 @@
 ### [2. OAuth 자동설정](https://github.com/onlydev7777/spring-security-oauth-2.0/blob/main/2.%20OAuth%20%EC%9E%90%EB%8F%99%EC%84%A4%EC%A0%95.md)
 ### [3. OAuth2Login](https://github.com/onlydev7777/spring-security-oauth-2.0/blob/main/3.%20OAuth2Login.md)
 ### [4. OAuth2Client](https://github.com/onlydev7777/spring-security-oauth-2.0/blob/main/4.%20OAuth2Client.md)
+
+## 스프링 시큐리티 OAuth2.0 - velog
+
+### [velog : 1. OAuth2Client 자동설정](https://velog.io/@onlydev7777/Spring-Security-OAuth2-1.-OAuth2Client-%EC%9E%90%EB%8F%99%EC%84%A4%EC%A0%95)
+### [velog : 2. OAuth2Login](https://velog.io/@onlydev7777/Spring-Security-OAuth2-2.-OAuth2Login)
